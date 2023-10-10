@@ -1,0 +1,11 @@
+img {
+    width: 50%;
+}
+
+.translateplus {
+    transform: translateX(170%);
+}
+
+.translateless {
+    transform: translateX(-170%);
+}
