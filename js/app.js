@@ -1,46 +1,51 @@
-const images = [
-  '../img/01.webp',
-  '../img/02.webp',
-  '../img/03.webp',
-  '../img/04.webp',
-  '../img/05.webp',
+const imagesSrc = [
+  './img/01.webp',
+  './img/02.webp',
+  './img/03.webp',
+  './img/04.webp',
+  './img/05.webp',
 ];
 
 const carouselDOMElement = document.querySelector('.carousel');
-console.log(carouselDOMElement);
+console.log(carouselDOMElement, imagesSrc);
 
-const leftButtonDOMElement = document.getElementById('leftButton')
-leftButtonDOMElement
-console.log(images);
-for (let i = 0; i < images.length; i++) {
-  let status = 'd-none';
-  const currentSrc = images[i];
-  console.log(currentSrc);
+for (let i = 0; i < imagesSrc.length; i++) {
+  console.log(imagesSrc[i]);
+  const src = imagesSrc[i];
 
-  if (i == 0) {
-    status = 'd-inline-flex';
-  }
+  const html = ` <img src="${src}" alt="" class="carousel_item"> `;
 
-  const htmlString = ` 
-  <div class="image ${status}">
-    <div class="carousel-inner">
-        <div class="carousel-item d-flex flex-wrap justify-content-center align-items-center active">
-            <img class="d-block" src="${currentSrc}">
-        </div>
-    </div>
-    
-        <button id="leftButton" class="carousel-control-prev translateplus bg-warning" type="button">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-        <button class="carousel-control-next translateless bg-warning" type="button">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-   
-    
-</div>`;
-  console.log(htmlString);
-
-  carouselDOMElement.innerHTML += htmlString;
+  carouselDOMElement.innerHTML += html;
+  // console.log(carouselDOMElement)
 }
+
+const itemsDOMElements = document.querySelectorAll('.carousel_item')
+console.log(itemsDOMElements)
+
+let currentIndex = 0
+
+let currentSlide = itemsDOMElements[currentIndex]
+currentSlide.classList.add('active')
+
+const arrowTop = document.querySelector('.carousel .arrow--top')
+const arrowBottom = document.querySelector('.carousel .arrow--bottom')
+
+arrowTop.addEventListener('click', function () {
+  console.log('click top')
+  console.log(itemsDOMElements[currentIndex])
+  itemsDOMElements[currentIndex].classList.remove('active')
+  currentIndex = (currentIndex - 1 + itemsDOMElements.length) % itemsDOMElements.length
+  itemsDOMElements[currentIndex].classList.add('active')
+  console.log(itemsDOMElements)
+
+})
+
+arrowBottom.addEventListener('click', function () {
+  console.log('click bottom')
+  console.log(itemsDOMElements[currentIndex])
+  itemsDOMElements[currentIndex].classList.remove('active')
+  currentIndex = (currentIndex + 1) % itemsDOMElements.length
+  itemsDOMElements[currentIndex].classList.add('active')
+  console.log(itemsDOMElements)
+
+})
